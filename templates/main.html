@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+calculate distance
+{% endblock title %}
+
+{% block content %}
+
+<!-- Modal -->
+<div class="container" style="margin-top:33px;">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Distance to {{ destination }} is:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ distance }} km
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        {{ map|safe }}
+    </div>
+<div class="col-sm-6">
+
+
+
+
+
+<form action="" method="POST" autocomplete="off">
+    {% csrf_token %}
+    {{form|crispy}}
+    <button type="submit" class="btn btn-primary">confirm</button>
+</form>
+<br>
+<p>tota distance {{ distance }}</p>
+<h3>Devloped By Rashid Khan</h3>
+{% comment %} This product includes GeoLite2 data created by MaxMind, available from
+<a href="https://www.maxmind.com">https://www.maxmind.com</a>. {% endcomment %}
+</div>
+</div>
+</div>
+
+{% if request.POST and distance is not None %}
+    <script>
+        $(window).on('load', function(){
+            $('#exampleModal').modal('show')
+        })
+    </script>
+{% endif %}
+
+{% endblock content %}
